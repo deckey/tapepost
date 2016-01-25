@@ -1,0 +1,20 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+      xmlns:p="tapestry:parameter">
+    
+    <t:content>
+        <div class="row border_btm " id="headerBar">
+            <div class="col-xs-6">
+                <t:eventlink t:event="enterAdminArea">
+                    <img src="${context:images/tapepostLogoHeader.png}" />
+                </t:eventlink>
+            </div>
+            <div class="col-xs-6">
+                <p class="text-right">
+                    <t:eventlink t:event="logout"><img src="${context:images/icons/logout.png}" title="Logout"/></t:eventlink>
+                </p>
+                <p class="text-right">Welcome, <b>${loggedInMember.getMemberFullName()}</b></p>
+            </div>
+        </div>
+    </t:content>
+</html>

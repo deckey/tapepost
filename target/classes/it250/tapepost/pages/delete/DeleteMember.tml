@@ -1,0 +1,26 @@
+<html t:type="layout" title="TapePost:Delete member? "
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
+
+    <!-- Main hero unit for a primary marketing message or call to action -->
+    <body>
+        <t:header/>
+        <t:mainmenu/>
+        <div class="row border_btm">
+            <h4>Delete member?</h4>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <t:beandisplay t:object="member"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-10"/>
+            <t:pagelink t:page="AdminArea" t:context="member.memberId" style="margin-right:1em" class="btn btn-default ">Cancel</t:pagelink>
+            <t:eventlink t:event="deleteMember" context="member.memberId" class="btn btn-danger">Delete</t:eventlink>
+        </div>
+    </body>
+</html>
+

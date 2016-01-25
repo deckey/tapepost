@@ -1,0 +1,42 @@
+<html t:type="layout" title="TapePost:Register "
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
+
+    <!-- Main hero unit for a primary marketing message or call to action -->
+    <body>
+        <div class="col-xs-12 col-sm-6" id="loginPanel">
+            <img src="${context:images/tapepostLogoHeader.png}"/>
+            <t:form t:id="registerForm" id="registerForm" >
+                <legend>Register and join our community</legend>
+                <t:alerts/>
+                <!--<t:errors/>-->
+                <div class="control-group col-xs-6">
+                    <label for="memberFullName" class="control-label">Full name</label>
+                    <t:textfield t:id="memberFullName" id="memberFullName" value="memberFullName"/>                
+                </div> 
+                <div class="control-group col-xs-6">
+                    <label for="memberUsername" class="control-label">Username</label>
+                    <t:textfield t:id="memberUsername" id="memberUsername" value="memberUsername"/>
+                </div>
+                    
+                <div class="control-group col-xs-6">
+                    <label for="memberPassword">Password</label>
+                    <t:textfield t:id="memberPassword" id="memberPassword" value="memberPassword"  onkeyup="checkPasswords()"/>
+                </div>
+                <div class="control-group col-xs-6">
+                    <label for="memberRepeatPassword" >Confirm password</label>
+                    <t:textfield t:id="memberRepeatPassword" id="memberRepeatPassword" value="memberRepeatPassword" onkeyup="checkPasswords()"/>
+                </div>
+                <div class="control-group col-xs-12">
+                    <div class="col-xs-5 pull-right">
+                        <t:pagelink t:page="Index" class="btn btn-default">Cancel</t:pagelink>
+                        <button class="btn btn-primary" id="registerBtn" >Register</button>
+                    </div>
+                </div>
+            </t:form>
+        </div>
+    </body>
+</html>
+

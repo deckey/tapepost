@@ -1,0 +1,21 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+      xmlns:p="tapestry:parameter">
+    
+    <t:content>
+        <div class="row">
+            <nav class="col-xs-12 col-sm-6">
+                <ul class="nav nav-pills" id="mainMenu">
+                    <t:loop t:source="pageNames" value="pageName">
+                        <li role="presentation" class="${classForPage}">
+                            <t:pagelink t:page="${pageName}" title="${pageTooltip}">${pageLabel}</t:pagelink>
+                        </li>
+                    </t:loop>
+                    <li>
+                        <t:pagelink t:page="create/CreatePost" ><img src="${context:images/icons/plus.png}" title="Create post" class="circle-icon"/></t:pagelink>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </t:content>
+</html>

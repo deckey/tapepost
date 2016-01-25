@@ -1,0 +1,39 @@
+<html t:type="layout" title="TapePost:Create Post "
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
+
+    <!-- Main hero unit for a primary marketing message or call to action -->
+    <body>
+        <t:header/>
+        <t:mainmenu/>
+        <div class="row title-header border_btm">
+            <h4 >Create new post</h4>
+        </div>
+        
+        <div class="row">
+            <t:form t:id="addPostForm" id="addPostForm" t:object="post">
+                <div class="row">
+                    <div class="control-group col-xs-4">
+                        <t:label for="postTitle">Post title</t:label>
+                        <t:textfield t:id="postTitle" id="postTitle" t:value="postTitle"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="control-group col-xs-6">
+                        <t:label for="postContent">Post content</t:label>
+                        <t:textarea t:id="postContent" id="postContent" t:value="postContent" rows="5" cols="20"/>
+                    </div>
+                </div>
+                <div class="control-group col-xs-6">
+                    <div class="col-xs-4 pull-right">
+                        <t:pagelink t:page="Posts" class="btn btn-default">Cancel</t:pagelink>
+                        <button class="btn btn-primary" id="addPostBtn" >Post</button>
+                    </div>
+                </div>
+            </t:form>
+        </div>
+    </body>
+</html>
+

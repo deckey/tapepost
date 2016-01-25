@@ -1,0 +1,36 @@
+<html t:type="layout" title="Welcome to TapePost "
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
+
+    <!-- Main hero unit for a primary marketing message or call to action -->
+    <body>
+        <div class="col-xs-12 col-sm-6" id="loginPanel">
+            <img src="${context:images/tapepostLogoHeader.png}"/>
+            <t:form t:id="loginForm" id="loginForm">
+                <legend>Log in and start posting now!</legend>
+                <t:alerts/>
+                <div class="row">
+                    <div class="control-group col-xs-6">
+                        <label for="memberUsername">Username</label>
+                        <t:textfield t:id="memberUsername" id="memberUsername" value="memberUsername"/>
+                    </div> 
+                    <div class="control-group col-xs-6">
+                        <label for="memberPassword">Password</label>
+                        <t:textfield type="password" t:id="memberPassword" id="memberPassword" value="memberPassword"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="control-group col-xs-12">
+                        <div class="col-xs-6 pull-right">
+                            <t:submit value="Sign in" class="btn btn-primary pull-right"/>
+                            <t:pagelink t:page="Register" class="btn btn-default pull-right">Register</t:pagelink>
+                        </div>
+                    </div>
+                </div>
+            </t:form>
+        </div>
+    </body>
+    
+</html>

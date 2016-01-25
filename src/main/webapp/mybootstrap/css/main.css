@@ -1,0 +1,42 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jan 13, 2016, 12:56:38 PM
+    Author     : Dejan Ivanovic divanovic3d@gmail.com
+*/
+/*CSS CUSTOMIZER values in /PSD subfolder*/
+
+/*CONTAINERS*/
+
+body{padding:0;margin:0;}
+
+/*BORDERS*/
+.border_btm{border-bottom: #0d87e9 1px solid;}
+
+
+/*HEADERS*/
+#headerBar{padding: 1em 0;}
+.title-header{margin-top:2em;line-height:4em;display: block;background-color:rgba(33,150,240,0.3);}
+.title-header h4{padding-top: 2em;margin-left:1em;}
+/*MAIN MENU*/
+#mainMenu li{border-top: #fff 5px solid;}
+#mainMenu li.current{border-top: #0c84e4 5px solid;font-weight: bold; }
+.circle-icon{border-radius: 10px;}
+
+/*COLORS*/
+.bg-prim{background-color: #2196f3;}
+.bg-sec{background-color: #ff99ff }
+#loginPanel{margin:0 auto;margin-top:10em;}
+.control-group{margin-top:1em;}
+.control-group .btn-primary{margin-left:0.5em;}
+
+/*POSTS*/
+.post h4{}
+.post-title{font-size:1.5em;}
+.post h5{font-size:1.2em;color:#999999;}
+.post h5 b{font-style:normal;font-weight: normal;color:#666666}
+.post h5 small{margin-right:1em;}
+.post h6{display:block;min-height: 6em;border:rgba(150,150,150,0.2) 1px solid;padding:0.2em;color:#666666;}

@@ -1,0 +1,46 @@
+<html t:type="layout" title="TapePost:Admin Area "
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
+
+    <!-- Main hero unit for a primary marketing message or call to action -->
+    <body>
+        <t:header/>
+        <t:mainmenu/>
+        <div class="row ">
+            <h4 class="border_btm">Members</h4>
+            <t:grid t:source="members"
+                    exclude="memberPassword"
+                    rowsperpage="10"
+                    row="rowmember"
+                    add="Action"
+                    class="table">
+                <p:actionCell>
+                    <t:pagelink t:page="delete/deleteMember" t:context="rowmember.memberId">Delete</t:pagelink>
+                    <br/>
+                    <t:eventlink t:event="EditMember" t:context="rowmember">Select</t:eventlink>
+                </p:actionCell>
+            </t:grid>
+            <t:alerts/>
+        </div>
+        <div class="row">
+            <h4 class="border_btm">Posts</h4>
+            <t:grid t:source="posts"
+                    rowsperpage="10"
+                    row="post"
+                    add="Action"
+                    class="table">
+                <p:actionCell>
+                    <t:pagelink t:page="delete/deletePost" t:context="post.postId">Delete</t:pagelink>
+                    <br/>
+                </p:actionCell>
+                <p:empty>
+                    No posts
+                </p:empty>
+            </t:grid>
+            <t:alerts/>
+        </div>
+    </body>
+</html>
+
