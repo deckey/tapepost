@@ -5,6 +5,7 @@
  */
 package it250.tapepost.data;
 
+import it250.tapepost.entities.Comment;
 import it250.tapepost.entities.Member;
 import it250.tapepost.entities.Post;
 import java.util.List;
@@ -26,6 +27,14 @@ public class PostIMPL implements PostDAO {
         Post post = findPostById(id);
         dbs.delete(post);
     }
+
+    @Override
+    public Comment findCommentById(Integer id) {
+        return (Comment) dbs.createCriteria(Comment.class)
+                .add(Restrictions.eq("commentId", id))
+                .uniqueResult();
+    }
+    
     @Override
     public Post findPostById(Integer id) {
         return (Post) dbs.createCriteria(Post.class)
@@ -39,10 +48,21 @@ public class PostIMPL implements PostDAO {
     }
 
     @Override
+    public void saveComment(Comment comment) {
+        dbs.persist(comment);
+    }
+    
+    @Override
     public void savePost(Post post) {
         dbs.persist(post);
     }
 
+    @Override
+    public void updateComment(Comment comment) {
+        dbs.merge(comment);
+    }
+
+    
     @Override
     public void updatePost(Post post) {
         dbs.merge(post);

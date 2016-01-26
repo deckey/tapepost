@@ -5,7 +5,7 @@
  */
 package it250.tapepost.data;
 
-import it250.tapepost.entities.Member;
+import it250.tapepost.entities.Comment;
 import it250.tapepost.entities.Post;
 import java.util.List;
 
@@ -19,9 +19,15 @@ public interface PostDAO {
 
     public List<Post> findAllPosts();
 
+    public Comment findCommentById(Integer id);
+
     public Post findPostById(Integer id);
 
+    public void saveComment(Comment comment);
+
     public void savePost(Post post);
+
+    public void updateComment(Comment comment);
 
     public void updatePost(Post post);
 }

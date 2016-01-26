@@ -12,15 +12,15 @@ and open the template in the editor.
 /*CONTAINERS*/
 
 body{padding:0;margin:0;}
-
+.frame{padding:1em;}
 /*BORDERS*/
 .border_btm{border-bottom: #0d87e9 1px solid;}
 
 
 /*HEADERS*/
 #headerBar{padding: 1em 0;}
-.title-header{margin-top:2em;line-height:4em;display: block;background-color:rgba(33,150,240,0.3);}
-.title-header h4{padding-top: 2em;margin-left:1em;}
+.title-header{margin-top:2em;line-height:2em;display: block;background-color:rgba(33,150,240,0.3);}
+.title-header h4{padding-top: 1em;margin-left:1em;}
 /*MAIN MENU*/
 #mainMenu li{border-top: #fff 5px solid;}
 #mainMenu li.current{border-top: #0c84e4 5px solid;font-weight: bold; }
@@ -39,4 +39,4 @@ body{padding:0;margin:0;}
 .post h5{font-size:1.2em;color:#999999;}
 .post h5 b{font-style:normal;font-weight: normal;color:#666666}
 .post h5 small{margin-right:1em;}
-.post h6{display:block;min-height: 6em;border:rgba(150,150,150,0.2) 1px solid;padding:0.2em;color:#666666;}
+.post h6{display:block;min-height: 2em;border-bottom: rgba(150,150,150,0.2) 1px solid;padding:0.2em;color:#666666;}

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 25, 2016 at 11:47 PM
+-- Generation Time: Jan 26, 2016 at 01:32 AM
 -- Server version: 5.6.26
 -- PHP Version: 5.5.28
 
@@ -29,9 +29,29 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `comment` (
   `commentId` int(11) NOT NULL,
   `commentContent` varchar(255) DEFAULT NULL,
-  `commentTime` datetime DEFAULT NULL,
+  `commentTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `commentMemberId` int(11) DEFAULT NULL,
   `commentPostId` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`commentId`, `commentContent`, `commentTime`, `commentMemberId`, `commentPostId`) VALUES
+(22, 'This is an auto-generated comment!', '2016-01-26 00:27:48', 1, 35),
+(23, 'This is an auto-generated comment!', '2016-01-26 00:28:09', 26, 35),
+(24, 'This is an auto-generated comment!', '2016-01-26 00:28:44', 25, 35),
+(25, 'This is an auto-generated comment!', '2016-01-26 00:29:01', 25, 34),
+(26, 'This is an auto-generated comment!', '2016-01-26 00:29:12', 1, 34),
+(27, 'This is an auto-generated comment!', '2016-01-26 00:29:31', 1, 31),
+(29, 'This is an auto-generated comment!', '2016-01-26 00:30:59', 1, 34),
+(30, 'This is an auto-generated comment!', '2016-01-26 00:31:02', 1, 31),
+(31, 'This is an auto-generated comment!', '2016-01-26 00:31:05', 1, 31),
+(32, 'This is an auto-generated comment!', '2016-01-26 00:31:07', 1, 31),
+(33, 'This is an auto-generated comment!', '2016-01-26 00:31:11', 1, 31),
+(34, 'This is an auto-generated comment!', '2016-01-26 00:31:14', 1, 35),
+(35, 'This is an auto-generated comment!', '2016-01-26 00:31:17', 1, 35);
 
 -- --------------------------------------------------------
 
@@ -48,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `member` (
   `memberPassword` varchar(255) DEFAULT NULL,
   `memberRole` varchar(255) DEFAULT NULL,
   `memberUsername` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `member`
@@ -56,7 +76,8 @@ CREATE TABLE IF NOT EXISTS `member` (
 
 INSERT INTO `member` (`memberId`, `memberBio`, `memberCountry`, `memberEmail`, `memberFullName`, `memberPassword`, `memberRole`, `memberUsername`) VALUES
 (1, 'Super user - main admin', 'Serbia', 'admin@admin.com', 'Administrator', 'admin', 'Administrator', 'admin'),
-(25, 'Some information about the member', 'Serbia', 'de@de.com', 'de', 'de', 'User', 'de');
+(25, 'Some information about the member', 'Serbia', 'de@de.com', 'de', 'de', 'User', 'de'),
+(26, NULL, 'Serbia', 'daddw', 'Member 2', 'mem2', 'User', 'mem2');
 
 -- --------------------------------------------------------
 
@@ -71,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   `postTitle` varchar(255) DEFAULT NULL,
   `postVotes` int(11) NOT NULL,
   `postMemberId` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `post`
@@ -86,7 +107,10 @@ INSERT INTO `post` (`postId`, `postContent`, `postTime`, `postTitle`, `postVotes
 (28, 'aaaa', '2016-01-25 20:44:10', 'aaa', 0, 25),
 (31, 'vvv', '2016-01-25 20:46:23', 'vvv', 0, 1),
 (32, 'ggg', '2016-01-25 20:46:29', 'ggg', 0, 1),
-(33, 'asdasdas', '2016-01-25 20:49:14', 'asdasd', 0, 1);
+(33, 'asdasdas', '2016-01-25 20:49:14', 'asdasd', 0, 1),
+(34, 'The European languages are members of the same family. Their separate existence is a myth.\r\n\r\nFor science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar,.', '2016-01-25 23:11:08', 'The European languages are members of the ', 0, 1),
+(35, 'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth.\r\n\r\nPor scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pro', '2016-01-25 23:24:56', 'Europan lingues es membres', 0, 1),
+(36, 'But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the gre', '2016-01-25 23:26:34', 'must explain to you how all this mistak', 0, 26);
 
 --
 -- Indexes for dumped tables
@@ -120,17 +144,17 @@ ALTER TABLE `post`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `commentId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `commentId` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `memberId` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
+  MODIFY `memberId` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `postId` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
+  MODIFY `postId` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
 --
 -- Constraints for dumped tables
 --

@@ -25,35 +25,36 @@ import org.apache.tapestry5.ioc.annotations.Inject;
  * @author Dejan Ivanovic divanovic3d@gmail.com
  */
 @Entity
-@Table(name="member")
+@Table(name = "member")
 public class Member {
-    
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="memberId")
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "memberId")
     private Integer memberId;
-    
-    @Column(name="memberFullName")
+
+    @Column(name = "memberFullName")
     private String memberFullName;
- 
-    @Column(name="memberEmail")
+
+    @Column(name = "memberEmail")
     private String memberEmail;
-    
-    @Column(name="memberUsername")
+
+    @Column(name = "memberUsername")
     private String memberUsername;
-    
-    @Column(name="memberPassword")
+
+    @Column(name = "memberPassword")
     private String memberPassword;
-    
-    @Column(name="memberCountry")
+
+    @Column(name = "memberCountry")
     private String memberCountry;
-    
-    @Column(name="memberBio")
+
+    @Column(name = "memberBio")
     private String memberBio;
-    
-    @Column(name="memberRole")
+
+    @Column(name = "memberRole")
     @Enumerated(EnumType.STRING)
     private MemberRole memberRole;
-    
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private Set<Post> posts;
 
@@ -67,7 +68,6 @@ public class Member {
         this.memberPassword = memberPassword;
         this.memberRole = memberRole;
     }
-    
 
     public Integer getMemberId() {
         return memberId;
