@@ -37,9 +37,7 @@ public class Header {
 //    public String getLoggedUser() {
 //        return loggedInUser.getMemberFullName();
 //    }
-
     //Check if user is Admin and can access admin area
-
     Object onEnterAdminArea() {
         if (loggedInMember.getMemberRole().equals(MemberRole.Administrator)) {
             return AdminArea.class;
@@ -50,5 +48,12 @@ public class Header {
     Object onLogout() {
         resources.discardPersistentFieldChanges();
         return Index.class;
+    }
+
+    Object onActivate() {
+        if (loggedInMember == null) {
+            return Index.class;
+        }
+        return null;
     }
 }

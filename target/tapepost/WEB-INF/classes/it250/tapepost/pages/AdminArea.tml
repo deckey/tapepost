@@ -8,19 +8,58 @@
     <body>
         <t:header/>
         <t:mainmenu/>
+        
+        <div class="row">
+            <h4 class="border_btm">Add new member</h4>
+            <t:form t:id="addMemberForm" id="addMemberForm">
+                <div class="row">
+                    <div class="control-group col-xs-4">
+                        <t:label for="memberFullName">Full name</t:label>
+                        <t:textfield t:id="memberFullName" id="memberFullName" t:value="memberFullName"/>
+                    </div>
+                    <div class="control-group col-xs-4">
+                        <t:label for="memberUsername">Username</t:label>
+                        <t:textfield t:id="memberUsername" id="memberUsername" t:value="memberUsername"/>
+                    </div>
+                    <div class="control-group col-xs-4">
+                        <t:label for="memberPassword">Pasword</t:label>
+                        <t:textfield type="password" t:id="memberPassword" id="memberPassword" t:value="memberPassword"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="control-group col-xs-4">
+                        <t:label for="memberEmail">E-mail</t:label>
+                        <t:textfield t:id="memberEmail" id="memberEmail" t:value="memberEmail"/>
+                    </div>
+                    <div class="control-group col-xs-4">
+                        <t:label for="memberRole">Role</t:label>
+                        <t:select t:model="roles" t:id="memberRole" id="memberRole" t:value="memberRole"/>
+                    </div>
+                    <div class="control-group col-xs-4">
+                        <t:label for="memberBio">Bio</t:label>
+                        <t:textfield t:id="memberBio" id="memberBio" t:value="memberBio" />
+                    </div>
+                </div>
+                <div class="control-group col-xs-12">
+                    <div class="col-xs-2 pull-right">
+                        <t:submit class="btn btn-primary" id="addMemberBtn" value="Create member"/>
+                    </div>
+                </div>
+            </t:form>
+        </div>
         <div class="row ">
             <h4 class="border_btm">Members</h4>
             <t:grid t:source="members"
                     exclude="memberPassword"
                     rowsperpage="10"
                     row="rowmember"
-                    add="Action"
+                    add="Action, Posts"
                     class="table">
                 <p:actionCell>
                     <t:pagelink t:page="delete/deleteMember" t:context="rowmember.memberId">Delete</t:pagelink>
-                    <br/>
-                    <t:eventlink t:event="EditMember" t:context="rowmember">Select</t:eventlink>
                 </p:actionCell>
+                <p:postsCell> ${rowmember.getPosts().size()}</p:postsCell>
+            
             </t:grid>
             <t:alerts/>
         </div>

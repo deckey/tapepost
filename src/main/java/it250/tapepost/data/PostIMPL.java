@@ -5,8 +5,10 @@
  */
 package it250.tapepost.data;
 
+import it250.tapepost.entities.Comment;
 import it250.tapepost.entities.Member;
 import it250.tapepost.entities.Post;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
@@ -22,10 +24,23 @@ public class PostIMPL implements PostDAO {
     private Session dbs;
 
     @Override
+    public void deleteComment(Comment comment) {
+        dbs.delete(comment);
+    }
+
+    @Override
     public void deletePost(Integer id) {
         Post post = findPostById(id);
         dbs.delete(post);
     }
+
+    @Override
+    public Comment findCommentById(Integer id) {
+        return (Comment) dbs.createCriteria(Comment.class)
+                .add(Restrictions.eq("commentId", id))
+                .uniqueResult();
+    }
+
     @Override
     public Post findPostById(Integer id) {
         return (Post) dbs.createCriteria(Post.class)
@@ -34,13 +49,36 @@ public class PostIMPL implements PostDAO {
     }
 
     @Override
+    public List<Post> findPostsByMember(Member member) {
+        Integer memberId = member.getMemberId();
+        List<Post> memberPosts = dbs.createCriteria(Post.class).add(Restrictions.eq("member", member)).list();
+        return memberPosts;
+    }
+
+    @Override
+    public List<Comment> findAllComments() {
+        List<Comment> comments = dbs.createCriteria(Comment.class).list();
+        return comments;
+    }
+
+    @Override
     public List<Post> findAllPosts() {
         return dbs.createCriteria(Post.class).list();
     }
 
     @Override
+    public void saveComment(Comment comment) {
+        dbs.persist(comment);
+    }
+
+    @Override
     public void savePost(Post post) {
         dbs.persist(post);
+    }
+
+    @Override
+    public void updateComment(Comment comment) {
+        dbs.merge(comment);
     }
 
     @Override
