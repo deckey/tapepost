@@ -11,7 +11,9 @@
             </div>
             <div class="col-xs-6">
                 <p class="text-right">
-                    <t:eventlink t:event="logout"><img src="${context:images/icons/logout.png}" title="Logout"/></t:eventlink>
+                    <t:eventlink t:event="logout">
+                        <img src="${context:images/icons/logout.png}" title="Logout"/>
+                    </t:eventlink>
                 </p>
                 <p class="text-right">Welcome, <b>${loggedInMember.getMemberFullName()}</b></p>
             </div>

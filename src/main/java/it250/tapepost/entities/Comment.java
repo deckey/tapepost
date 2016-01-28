@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 /**
@@ -25,7 +26,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
  */
 @Entity
 @Table(name = "comment")
-public class Comment implements Serializable, Comparable<Comment> {
+public class Comment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,10 +39,10 @@ public class Comment implements Serializable, Comparable<Comment> {
     @Column(name = "commentTime")
     @Temporal(TemporalType.TIMESTAMP)
     private Date commentTime;
-    
-    @Column(name="commentMemberId")
+
+    @Column(name = "commentMemberId")
     private Integer commentMemberId;
-    
+
     @ManyToOne
     @JoinColumn(name = "commentPostId")
     private Post post;
@@ -50,9 +51,10 @@ public class Comment implements Serializable, Comparable<Comment> {
     public Comment() {
     }
 
-    public Comment(String commentContent, Post post) {
+    public Comment(String commentContent, Post post, Member member) {
         this.commentContent = commentContent;
         this.post = post;
+        this.commentMemberId = member.getMemberId();
     }
 
     public Integer getCommentId() {
@@ -93,11 +95,6 @@ public class Comment implements Serializable, Comparable<Comment> {
 
     public void setPost(Post post) {
         this.post = post;
-    }
-
-    @Override
-    public int compareTo(Comment o) {
-        return (this.getCommentTime().after(o.getCommentTime())) ? -1 : 1;
     }
 
 }

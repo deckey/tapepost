@@ -2,135 +2,138 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
       xmlns:p="tapestry:parameter">
 
-    <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
-
-    <!-- Main hero unit for a primary marketing message or call to action -->
     <body>
         <t:header/>
         <t:mainmenu/>
         <div class="row title-header border_btm">
             <h4 >Posts</h4>
+            <!--<t:grid t:source="posts"/>-->
         </div>
         
         <div class="row ">
             <div class="col-xs-6 frame">
-                <h6>
+                <h5>
                     <i>Latest posts</i>
-                </h6>
-                <t:loop t:source="recentPosts" t:value="post">
+                </h5>
+                <t:loop t:source="latestPosts" t:value="post">
                     <div class="post">
-                            <t:eventlink t:event="selectPost" t:context="post.postId" async="true" class="post-title">${post.getPostTitle()}</t:eventlink>
-                            <h5> 
-                                posted on <b>${getFormattedDate(post.getPostTime())}</b> at <b>${getFormattedTime(post.getPostTime())}</b> by 
-                            <t:pagelink t:page="view/ViewMember" t:context="post.getMember().getMemberId()">${post.getMember().getMemberUsername()}</t:pagelink>
+                        <!--POST TITLE-->
+                        <t:eventlink t:event="selectPost" t:context="post.postId" async="true" class="post-title">
+                            ${post.getPostTitle()}
+                        </t:eventlink>
+                        <!--POST FACTS-->
+                        <h5>
+                            <i>
+                                posted ${getFormattedDate(post.getPostTime())}
+                                at 
+                                ${getFormattedTime(post.getPostTime())}
+                                by 
+                            </i>
+                            <t:pagelink t:page="view/ViewMember" t:context="post.getMember().getMemberId()">
+                                ${post.getMember().getMemberUsername()}
+                            </t:pagelink>
                         </h5>
-                        <h6>${post.getPostContent()}</h6>
+                        <!--POST CONTENT-->
+                        <div  class="short-content">
+                            <h6>${post.getPostContent()}</h6>
+                        </div>
+                        ...
                     </div>
                 </t:loop>
+                <!--<t:grid t:source="latestPosts"/>-->
             </div>
-            <div class="col-xs-6 frame">
-                <h6>
-                    <i>Popular posts</i>
-                </h6>
-                <t:loop t:source="popularPosts" t:value="post">
-                    <div class="post">
-                            <t:eventlink t:event="selectPost" t:context="post.postId" async="true" class="post-title">${post.getPostTitle()}</t:eventlink>
-                            <h5> 
-                                posted on <b>${getFormattedDate(post.getPostTime())}</b> at <b>${getFormattedTime(post.getPostTime())}</b> by 
-                            <t:pagelink t:page="view/ViewMember" t:context="post.getMember().getMemberId()">${post.getMember().getMemberUsername()}</t:pagelink>
-                        </h5>
-                        <h6>${post.getPostContent()}</h6>
-                    </div>
-                </t:loop>
-            </div>
+            
+            <t:zone t:id="popularPostsZone" id="popularPostsZone">
+                <div class="col-xs-6 frame">
+                    <h5>
+                        <i>Popular posts</i>
+                    </h5>
+                    <t:loop t:source="popularPosts" t:value="post">
+                        <div class="post">
+                            <!--POST TITLE-->
+                            <t:eventlink t:event="selectPost" t:context="post.postId" async="true" class="post-title" >
+                                ${post.getPostTitle()}
+                            </t:eventlink>
+                            <span class="badge pull-right">${post.getComments().size()}</span>
+                            <!--POST FACTS-->
+                            <h5>
+                                <i>
+                                    posted 
+                                    ${getFormattedDate(post.getPostTime())}
+                                    at 
+                                    ${getFormattedTime(post.getPostTime())}
+                                    by 
+                                </i>
+                                <t:pagelink t:page="view/ViewMember" t:context="post.getMember().getMemberId()">
+                                    ${post.getMember().getMemberUsername()}
+                                </t:pagelink>
+                                
+                            </h5>
+                            <!--POST CONTENT-->
+                            <div  class="mid-content">
+                                <h6>${post.getPostContent()}</h6>
+                            </div>
+                        </div>
+                    </t:loop>
+                </div>
+            </t:zone>
         </div>
-        
         <div class="row">
-            <!--DISPLAY POST DETAILS-->
-            <t:zone t:id="postDetailsZone" id="postDetails">
+            <t:zone t:id="commentZone" id="commentZone">
                 <t:if test="postSelected">
-                <div class="row">
-                    <div class="col-sm-9">
-                        <h4 class="col-sm-3">Post ID: #${post.postId}</h4>
-                    </div>
-                    <!--<t:pagelink t:page="delete/DeleteClient" t:context="client.clientId" class=" btn image-pagelink" title="Delete client?">-->
-                    <!--<img src="${context:images/icons/delete-client.png}" title="Delete client?"/>-->
-                    <!--</t:pagelink>-->
-                    <!--<t:pagelink t:page="edit/EditClient" t:context="client.clientId" class="btn btn-default " title="Edit client info">Edit</t:pagelink>-->
-                    <!--<t:pagelink t:page="view/ViewClient" t:context="client.clientId" class="btn btn-primary " title="View client details">View</t:pagelink>-->
-                </div>
-                <div class="row well">
-                    <h5>Latest comments on this post</h5>
-                    <t:loop t:source="recentComments" t:value="comment">
-                    <div class="post">
-                            <h5> 
-                                posted on <b>${getFormattedDate(comment.getCommentTime())}</b> at <b>${getFormattedTime(comment.getCommentTime())}</b> by 
-                            <t:pagelink t:page="view/ViewMember" t:context="comment.getCommentMemberId()">${getCommentMember(comment.commentId)}</t:pagelink>
+                    <div class="col-xs-12 spacer border-btm-prim"/>
+        
+                    <!--DISPLAY POST DETAILS-->
+                    <div class="col-xs-12 post">
+                        <h5>
+                            <t:pagelink t:page="view/ViewPostDetails" class="post-title" t:context="post.postId" title="View post details">
+                                ${post.getPostTitle()}
+                            </t:pagelink>
                         </h5>
-                        <h6>${comment.getCommentContent()}</h6>
-                    </div>
-                </t:loop>
-                    <div class="col-sm-2">
-                        <t:eventlink t:event="postComment" t:context="post.postId">Comment</t:eventlink>
-                        <!--                        <label>Company name:</label>
-                        <h4>${client.clientCompany}</h4>-->
-                    </div>
-                    <div class="col-sm-2">
-                        <!--                        <label>Contact person:</label>
-                        <h4>${client.clientContact}</h4>-->
-                    </div>
-                    <div class="col-sm-2">
-                        <!--                        <label>E-mail:</label>
-                        <h4>${client.clientEmail}</h4>-->
-                    </div>
-                    <div class="col-sm-2 col-sm-offset-2">
-                        <!--                        <label>Phone:</label>
-                        <h4>${client.clientPhone}</h4>-->
-                    </div>
-                    <div class="col-sm-2">
-                        <!--                        <label>Website:</label>
-                        <h4>${client.clientWebsite}</h4>-->
-                    </div>
-                </div>
+                        <!--POST CONTENT-->
+                        <h6>${post.getPostContent()}</h6>
+                    </div>  
                     
-                <h4>Post comments:</h4>
-                <!--                <div class="row">
-                    <table class="table display-grid">
-                        <th>Invoice #</th>
-                        <th>Services</th>
-                        <th>Status</th>
-                        <th>Invoice total</th>
-                        <tr t:type="loop" t:source="client.getInvoices()" value="invoice">
-                            <td>
-                                <t:pagelink t:page="view/ViewInvoice" t:context="invoice.invoiceId">${invoice.invoiceNumber}</t:pagelink>
-                            </td>
-                            <td>
-                                <t:loop t:source="invoice.getServices()" value="service">
-                                    ${service.serviceDescription}<br/>
-                                </t:loop>
-                            </td>
-                            <td>${invoice.invoiceStatus}</td>
-                            <td>
-                                ${invoice.invoiceAmount} ${invoice.getInvoiceCurrency().getValue()}
-                            </td>
-                        </tr>
-                    </table>
-                </div> -->
+                    <div class="col-xs-6">
+                        <!--POST COMMENT FORM-->
+                        <h5>Post comment:</h5>
+                        <t:form t:id="addCommentForm" id="addCommentForm">
+                            <t:textarea t:id="commentContent" id="commentContent" value="commentContent" rows="5"/>
+                            <t:submit t:event="postComment" t:context="post.postId" value="Comment"/>
+                        </t:form>
+                    </div>
+                    
+                    <div class="col-xs-6 comment">
+                        <!--LATEST COMMENTS-->
+                        <h6>
+                            <i>Latest comments</i>
+                        </h6>
+                        <t:loop t:source="latestComments" t:value="comment">
+                            <div class="post">
+                                <!--POST CONTENT-->
+                                <h6>${comment.commentContent}</h6>
+                                <!--POST FACTS-->
+                                <h5>
+                                    <i>
+                                        commented
+                                        ${getFormattedDate(comment.getCommentTime())}
+                                        at 
+                                        ${getFormattedTime(comment.getCommentTime())}
+                                        by 
+                                    </i> 
+                                    <t:pagelink t:page="view/ViewMember" t:context="comment.getCommentMemberId()">
+                                        ${getCommentingMember(comment.getCommentMemberId())}
+                                    </t:pagelink>
+                                </h5>
+                            </div>
+                        </t:loop>
+                    </div>
+                    <div class="row spacer"/>
+                    
+                    
                 </t:if>
             </t:zone>
         </div>
-        
-        
-        
-        <div class="row">
-<!--            <t:grid t:source="posts" row="post" add="posted by">
-                <p:postedByCell>
-                    ${post.getMember().getMemberUsername()}
-                </p:postedByCell>
-                
-            </t:grid>-->
-        </div>
     </body>
-    
 </html>
 

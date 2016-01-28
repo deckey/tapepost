@@ -17,6 +17,14 @@
             </div>
         </div>
         <div class="row">
+            Posts
+            <t:grid t:source="memberPosts"/>
+        </div>
+        <div class="row">
+            Comments
+            <t:grid t:source="getMemberComments()"/>
+        </div>
+        <div class="row">
             <div class="col-sm-10"/>
             <t:pagelink t:page="AdminArea" t:context="member.memberId" style="margin-right:1em" class="btn btn-default ">Cancel</t:pagelink>
             <t:eventlink t:event="deleteMember" context="member.memberId" class="btn btn-danger">Delete</t:eventlink>

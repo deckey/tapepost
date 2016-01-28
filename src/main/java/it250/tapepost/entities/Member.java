@@ -6,8 +6,9 @@
 package it250.tapepost.entities;
 
 import it250.tapepost.prop.MemberRole;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 /**
@@ -51,12 +54,16 @@ public class Member {
     @Column(name = "memberBio")
     private String memberBio;
 
+    @Column(name = "memberJoined")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date memberJoined;
+
     @Column(name = "memberRole")
     @Enumerated(EnumType.STRING)
     private MemberRole memberRole;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private Set<Post> posts;
+    private List<Post> posts;
 
     @Inject
     public Member() {
@@ -125,6 +132,14 @@ public class Member {
         this.memberBio = memberBio;
     }
 
+    public Date getMemberJoined() {
+        return memberJoined;
+    }
+
+    public void setMemberJoined(Date memberJoined) {
+        this.memberJoined = memberJoined;
+    }
+
     public MemberRole getMemberRole() {
         return memberRole;
     }
@@ -133,11 +148,11 @@ public class Member {
         this.memberRole = memberRole;
     }
 
-    public Set<Post> getPosts() {
+    public List<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(Set<Post> posts) {
+    public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
 }

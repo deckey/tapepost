@@ -6,6 +6,7 @@
 package it250.tapepost.data;
 
 import it250.tapepost.entities.Comment;
+import it250.tapepost.entities.Member;
 import it250.tapepost.entities.Post;
 import java.util.List;
 
@@ -15,13 +16,19 @@ import java.util.List;
  */
 public interface PostDAO {
 
+    public void deleteComment(Comment comment);
+
     public void deletePost(Integer id);
+
+    public List<Comment> findAllComments();
 
     public List<Post> findAllPosts();
 
     public Comment findCommentById(Integer id);
 
     public Post findPostById(Integer id);
+
+    public List<Post> findPostsByMember(Member member);
 
     public void saveComment(Comment comment);
 
