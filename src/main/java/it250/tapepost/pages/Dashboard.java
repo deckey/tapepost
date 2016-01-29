@@ -23,10 +23,10 @@ import org.apache.tapestry5.ioc.annotations.Inject;
  * @author Dejan Ivanovic divanovic3d@gmail.com
  */
 public class Dashboard {
-    
+
     @Property
     private List<Comment> comments;
-    
+
     @Property
     @SessionState
     private Member loggedInMember;
@@ -68,6 +68,16 @@ public class Dashboard {
         return sortedMembers.get(0);
     }
 
+    public Post getLatestPost() {
+        List<Post> latestPosts = posts;
+        Collections.sort(latestPosts, new Comparator<Post>() {
+            public int compare(Post o1, Post o2) {
+                return o1.getPostTime().after(o2.getPostTime()) ? -1 : 1;
+            }
+        });
+        return latestPosts.get(0);
+    }
+
     public List<Comment> getMemberComments(Member member) {
         List<Comment> memberComments = new ArrayList<>();
         comments = postDao.findAllComments();
@@ -78,9 +88,9 @@ public class Dashboard {
         }
         return memberComments;
     }
-    
-    public Member getMostActiveCommenter(){
-         List<Member> activeMembers = members;
+
+    public Member getMostActiveCommenter() {
+        List<Member> activeMembers = members;
 
         Collections.sort(activeMembers, new Comparator<Member>() {
             @Override
@@ -89,6 +99,16 @@ public class Dashboard {
             }
         });
         return activeMembers.get(0);
+    }
+
+    public Post getPopularPost() {
+        List<Post> popularPosts = posts;
+        Collections.sort(popularPosts, new Comparator<Post>() {
+            public int compare(Post o1, Post o2) {
+                return o1.getComments().size() > o2.getComments().size() ? -1 : 1;
+            }
+        });
+        return popularPosts.get(0);
     }
 
     public List<Comment> getAllComments() {

@@ -26,7 +26,7 @@
         </div>
         <div class="row">
             <div class="col-sm-10"/>
-            <t:pagelink t:page="AdminArea" t:context="member.memberId" style="margin-right:1em" class="btn btn-default ">Cancel</t:pagelink>
+            <t:pagelink t:page="Dashboard" style="margin-right:1em" class="btn btn-default ">Cancel</t:pagelink>
             <t:eventlink t:event="deleteMember" context="member.memberId" class="btn btn-danger">Delete</t:eventlink>
         </div>
     </body>
