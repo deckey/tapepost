@@ -5,11 +5,15 @@ import it250.tapepost.data.PostDAO;
 import it250.tapepost.entities.Comment;
 import it250.tapepost.entities.Member;
 import it250.tapepost.entities.Post;
-import it250.tapepost.pages.AdminArea;
+import it250.tapepost.pages.Members;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.tapestry5.alerts.AlertManager;
+import org.apache.tapestry5.alerts.Duration;
+import org.apache.tapestry5.alerts.Severity;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -23,10 +27,15 @@ import org.apache.tapestry5.ioc.annotations.Inject;
  * @author Dejan Ivanovic divanovic3d@gmail.com
  */
 public class DeleteMember {
+    
+    @Inject
+    private AlertManager alertManager;
 
     @Property
     private List<Comment> comments;
 
+    @SessionState
+    private Member loggedInMember;
     @Inject
     private MemberDAO memberDao;
 
@@ -69,22 +78,38 @@ public class DeleteMember {
 
     @CommitAfter
     Object onDeleteMember(Integer id) {
-
-//        List<Post> memberPosts = postDao.findPostsByMember(member);
-//        List<Comment> memberComments = new ArrayList<>();
-//        for (Post post : memberPosts) {
-//            for (Comment comment : post.getComments()) {
-//                System.out.println("MEMBER COMMENT: " + comment.getCommentContent());
-//                postDao.deleteComment(comment);
-//            }
-//        }
         Member member = memberDao.findMemberById(id);
-        for (Post post : member.getPosts()) {
-            for (Comment comment : post.getComments()) {
+        if (loggedInMember.getMemberUsername().equals(member.getMemberUsername())) {
+            alertManager.alert(Duration.TRANSIENT, Severity.ERROR, "You can not delete yourself!?");
+            return null;
+        }
+        List<Post> memberPosts = member.getPosts();
+        List<Comment> postComments = new ArrayList<>();
+        List<Comment> memberComments = getMemberComments();
+
+        System.out.println("DELETING COMMENTS.......");
+        for (Comment comment : memberComments) {
+            System.out.println("COMMENT: " + comment.getCommentContent());
+            postDao.deleteComment(comment);
+        }
+        System.out.println("......COMMENTS DELETED");
+
+        System.out.println("DELETING POST COMMENTS.......");
+        for (Post post : memberPosts) {
+            postComments = post.getComments();
+            for (Comment comment : postComments) {
                 postDao.deleteComment(comment);
             }
         }
+        System.out.println("......POST COMMENTS DELETED");
+
+        member.setPosts(new ArrayList<>());
+
+        System.out.println("DELETING POSTS.......");
+        postDao.deleteAllPosts(memberPosts);
+        System.out.println("DELETING MEMBER.......");
         memberDao.deleteMember(id);
-        return AdminArea.class;
+
+        return Members.class;
     }
 }

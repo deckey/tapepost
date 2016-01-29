@@ -15,7 +15,12 @@
                         <img src="${context:images/icons/logout.png}" title="Logout"/>
                     </t:eventlink>
                 </p>
-                <p class="text-right">Welcome, <b>${loggedInMember.getMemberFullName()}</b></p>
+                
+                <p class="text-right">Welcome, 
+                    <b>
+                        <t:pagelink t:page="view/ViewMember" t:context="loggedInMember.memberId">${loggedInMember.getMemberFullName()}</t:pagelink>
+                    </b>
+                </p>
             </div>
         </div>
     </t:content>

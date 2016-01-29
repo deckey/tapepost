@@ -10,20 +10,15 @@
         <t:mainmenu/>
         <div class="row border_btm">
             <h4>Delete member?</h4>
+            <h5>All member's posts and comments will be removed!</h5>
         </div>
         <div class="row">
+            <t:alerts/>
             <div class="col-xs-12">
                 <t:beandisplay t:object="member"/>
             </div>
         </div>
-        <div class="row">
-            Posts
-            <t:grid t:source="memberPosts"/>
-        </div>
-        <div class="row">
-            Comments
-            <t:grid t:source="getMemberComments()"/>
-        </div>
+        
         <div class="row">
             <div class="col-sm-10"/>
             <t:pagelink t:page="AdminArea" t:context="member.memberId" style="margin-right:1em" class="btn btn-default ">Cancel</t:pagelink>

@@ -7,7 +7,6 @@
         <t:mainmenu/>
         <div class="row title-header border_btm">
             <h4 >Posts</h4>
-            <!--<t:grid t:source="posts"/>-->
         </div>
         
         <div class="row ">
@@ -93,7 +92,7 @@
                         <!--POST CONTENT-->
                         <h6>${post.getPostContent()}</h6>
                     </div>  
-                    
+                    <div class="col-xs-12 border-btm-sec"/>
                     <div class="col-xs-6">
                         <!--POST COMMENT FORM-->
                         <h5>Post comment:</h5>

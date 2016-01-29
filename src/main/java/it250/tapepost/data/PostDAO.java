@@ -15,7 +15,12 @@ import java.util.List;
  * @author Dejan Ivanovic divanovic3d@gmail.com
  */
 public interface PostDAO {
-
+    
+    public void deleteAllComments(List<Comment> commentList);
+    
+    public void deleteAllPosts(List<Post> postList);
+    
+    
     public void deleteComment(Comment comment);
 
     public void deletePost(Integer id);

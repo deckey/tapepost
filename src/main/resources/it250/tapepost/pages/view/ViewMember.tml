@@ -8,19 +8,98 @@
     <body>
         <t:header/>
         <t:mainmenu/>
-        <div class="row border_btm">
-            <h4>Member details</h4>
+        <div class="row title-header border_btm">
+            <h4 >Member details</h4>
+        </div>
+        
+        <div class="row">
+            <!-- MEMBER DETAILS HEADER -->
+            <t:form class="col-xs-12 form-inline" t:id="memberSelectForm" id="memberSelectForm">
+                <h6>Select member:</h6>
+                <div class="form-group">
+                    <select t:type="select"
+                            t:model="members" t:id="membersList" id="membersList"
+                            t:value="member"/>
+                    <t:submit class="btn btn-default" value="Select"/>
+                </div>
+                <!--ONLY VISIBLE FOR ADMINISTRATORS-->
+                <!--EDIT MEMBER LINK BUTTON-->
+                <div class="form-group ">
+                    <t:if test="loggedInRole">
+                        <!--EDIT PROJECT LINK BUTTON-->
+                        <a t:type="pagelink" t:page="edit/EditMember" context="member.memberId" class="btn btn-primary  pull-right ">Edit member</a> 
+                    </t:if>
+                </div>
+            </t:form> 
         </div>
         <div class="row">
-            <div class="col-xs-12">
-                <t:beandisplay t:object="member"/>
+            <div class="col-xs-6">
+                <table class="table details-table">
+                    <tr>
+                        <td>Member name:</td>
+                        <td>
+                            <b>${member.memberFullName}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Username:</td>
+                        <td>${member.memberUsername}</td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td>
+                            <t:any>${passwordFormat}</t:any>  
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Role:</td>
+                        <td>${member.memberRole}</td>
+                    </tr>
+                    <tr>
+                        <td>E-mail:</td>
+                        <td>
+                            ${member.memberEmail}    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Country:</td>
+                        <td>${member.memberCountry}</td>
+                    </tr>
+                    <tr>
+                        <td>Member since:</td>
+                        <td>
+                            ${getFormattedDate(member.memberJoined)}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-xs-6">
+                <table class="table details-table">
+                    <tr>
+                        <td>Bio:</td>
+                        <td>
+                            ${member.memberBio}    
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
-<!--        <div class="row">
-            <div class="col-sm-10"/>
-            <t:pagelink t:page="AdminArea" t:context="member.memberId" style="margin-right:1em" class="btn btn-default ">Cancel</t:pagelink>
-            <t:eventlink t:event="deleteMember" context="member.memberId" class="btn btn-danger">Delete</t:eventlink>
-        </div>-->
+        <div class="row">
+            Posts
+            <div class="col-xs-12 table table-border">
+                <t:grid t:source="member.getPosts()">
+                    <p:empty>Member does not have any posts</p:empty>
+                </t:grid>
+            </div>
+        </div>
+        <div class="row">
+            Comments
+            <div class="col-xs-12 table table-border">
+                <t:grid t:source="getMemberComments()">
+                    <p:empty>No comments by this member yet</p:empty>
+                </t:grid>
+            </div>
+        </div>
     </body>
 </html>
 

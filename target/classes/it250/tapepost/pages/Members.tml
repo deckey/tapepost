@@ -8,7 +8,83 @@
     <body>
         <t:header/>
         <t:mainmenu/>
-        MEMBERS
+        <div class="row title-header border_btm">
+            <h4 >Members</h4>
+        </div>
+        
+        <div class="row ">
+            <div class="col-xs-6 frame">
+                <h5>
+                    <i>Members</i>
+                </h5>
+                <table class="table table-striped">
+                    <th>Username </th>
+                    <th>Posts</th>
+                    <th>Comments</th>
+                    <tr t:type="loop" t:source="members" t:value="member">
+                        
+                        <td>
+                            <t:pagelink t:page="view/ViewMember" t:context="member.memberId">${member.memberUsername}</t:pagelink>
+                        </td>
+                        <td>${member.getPosts().size()}</td>
+                        <td>${getMemberComments(member).size()}</td>
+                    </tr>
+                </table>
+<!--                <t:loop t:source="members" t:value="member">
+                       
+                        <t:eventlink t:event="selectPost" t:context="post.postId" async="true" class="post-title">
+                            ${post.getPostTitle()}
+                        </t:eventlink>
+                        POST FACTS
+                        <h5>
+                            <i>
+                                posted ${getFormattedDate(post.getPostTime())}
+                                at 
+                                ${getFormattedTime(post.getPostTime())}
+                                by 
+                            </i>
+                            <t:pagelink t:page="view/ViewMember" t:context="post.getMember().getMemberId()">
+                                ${post.getMember().getMemberUsername()}
+                            </t:pagelink>
+                        </h5>
+                        POST CONTENT
+                        <div  class="short-content">
+                            <h6>${post.getPostContent()}</h6>
+                        </div>
+                        ...
+                </t:loop>-->
+                <!--<t:grid t:source="latestPosts"/>-->
+            </div>
+            
+            <div class="col-xs-6 frame">
+                <h5>
+                    <i>Top 5 posts</i>
+                </h5>
+                <t:loop t:source="popularPosts" t:value="post">
+                    <div class="post">
+                        <t:pagelink t:page="view/ViewPostDetails" class="post-title" t:context="post.postId" title="View post details">
+                                ${post.getPostTitle()}
+                            </t:pagelink>
+                        <span class="badge pull-right">${post.getComments().size()}</span>
+                        <h5>
+                            <i>
+                                posted 
+                                ${getFormattedDate(post.getPostTime())}
+                                at 
+                                ${getFormattedTime(post.getPostTime())}
+                                by 
+                            </i>
+                            <t:pagelink t:page="view/ViewMember" t:context="post.getMember().getMemberId()">
+                                ${post.getMember().getMemberUsername()}
+                            </t:pagelink>
+                        </h5>
+                        <div  class="mid-content">
+                            <h6>${post.getPostContent()}</h6>
+                        </div>
+                    </div>
+                </t:loop>
+            </div>
+        </div>
     </body>
 </html>
 

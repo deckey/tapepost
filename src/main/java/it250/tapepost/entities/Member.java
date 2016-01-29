@@ -155,4 +155,11 @@ public class Member {
     public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
+
+    @Override
+    public String toString() {
+        return this.memberUsername;
+    }
+    
+    
 }
