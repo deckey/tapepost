@@ -12,7 +12,7 @@
                         </li>
                     </t:loop>
                     <li>
-                        <t:pagelink t:page="create/CreatePost" ><img src="${context:images/icons/plus.png}" title="Create post" class="circle-icon"/></t:pagelink>
+                        <t:pagelink t:page="create/CreatePost" t:context="loggedInMember.memberId"><img src="${context:images/icons/plus.png}" title="Create post" class="circle-icon"/></t:pagelink>
                     </li>
                 </ul>
             </nav>

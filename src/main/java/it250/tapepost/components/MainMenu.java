@@ -5,11 +5,13 @@
  */
 package it250.tapepost.components;
 
+import it250.tapepost.entities.Member;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 /**
@@ -21,6 +23,9 @@ public class MainMenu {
     @Inject
     private ComponentResources componentResource;
 
+    @Property
+    @SessionState
+    private Member loggedInMember;
     @Property
     private String pageName;
     @Property

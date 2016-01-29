@@ -145,7 +145,7 @@ public class Posts {
         return latestComments.subList(0, 3);
     }
 
-    void onSelectPost(Integer id) {
+    public void onSelectPost(Integer id) {
         postSelected = true;
         post = postDao.findPostById(id);
         response.addRender(commentZone);
