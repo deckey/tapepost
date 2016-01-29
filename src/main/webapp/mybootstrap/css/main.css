@@ -52,14 +52,14 @@ body{padding:0;margin:0;}
 /*DASHBOARD*/
 .dashboard-module{margin-top:2em;}
 .dashboard-module .icon{padding:0;}
-.dashboard-module .text{padding-left:8em;margin-top:5em;line-height:1.2em;font-size: 1.2em;}
-.dashboard-module img{padding:4em;}
+.dashboard-module .text{padding-left:8em;margin-top:3em;line-height:1.2em;font-size: 1.2em;}
+.dashboard-module img{padding:2em;}
 .dashboard-module h4 i{font-size: 0.7em;padding-left: 1em;color:#999999; }
 .badge{width:3em;background-color:#2196f3; }
 .headline-cut{height:1em;overflow: hidden;}
 
 
-.dashboard-icon{padding:2em;}
+.dashboard-icon{padding:2em;margin-left:2em;}
 .dashboard-icon img{}
 
 /*COMMENTS*/
