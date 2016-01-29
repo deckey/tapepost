@@ -24,6 +24,23 @@ public class PostIMPL implements PostDAO {
     private Session dbs;
 
     @Override
+    public void deleteAllComments(List<Comment> commentList) {
+        for (Comment comment : commentList){
+            dbs.delete(comment);
+        }
+    }
+
+    @Override
+    public void deleteAllPosts(List<Post> postList) {
+        for (Post post: postList){
+            dbs.delete(post);
+        }
+    }
+
+    
+    
+    
+    @Override
     public void deleteComment(Comment comment) {
         dbs.delete(comment);
     }

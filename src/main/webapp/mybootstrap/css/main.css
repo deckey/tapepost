@@ -64,3 +64,14 @@ body{padding:0;margin:0;}
 
 /*COMMENTS*/
 .comment h6 i{color: #999999}
+
+
+/*VIEW MEMBER*/
+#memberSelectForm{padding-bottom: 1em;padding-top: 1em;}
+#memberSelectForm select {
+    width:10em;
+}
+#memberSelectForm .btn {
+    margin-left: 0.5em;
+}
+#memberButtonsZone{}

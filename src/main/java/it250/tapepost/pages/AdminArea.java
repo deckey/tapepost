@@ -93,5 +93,4 @@ public class AdminArea {
         newMember.setMemberEmail(memberEmail);
         memberDao.saveMember(newMember);
     }
-
 }

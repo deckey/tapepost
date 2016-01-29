@@ -8,26 +8,134 @@
     <body>
         <t:header/>
         <t:mainmenu/>
-        <div class="row border_btm">
+        <div class="row title-header border_btm">
             <h4>Edit member details</h4>
         </div>
+       
         <div class="row">
-            <div class="col-xs-12">
-                <t:beandisplay t:object="member"/>
+            <!-- MEMBER DETAILS HEADER -->
+            <t:form class="col-xs-12 form-inline" t:id="memberSelectForm" id="memberSelectForm">
+                <h6>Select member:</h6>
+                <div class="form-group">
+                    <select t:type="select"
+                            t:model="members" t:id="membersList" id="membersList"
+                            t:value="member"/>
+                    <t:submit class="btn btn-default" value="Select"/>
+                </div>
+                <!--ONLY VISIBLE FOR ADMINISTRATORS-->
+                <!--EDIT MEMBER LINK BUTTON-->
+                <div class="form-group ">
+                    <t:if test="loggedInRole">
+                        <!--EDIT PROJECT LINK BUTTON-->
+                        <a t:type="pagelink" t:page="edit/EditMember" context="member.memberId" class="btn btn-primary  pull-right ">Edit member</a> 
+                    </t:if>
+                </div>
+            </t:form> 
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <table class="table details-table">
+                    <tr>
+                        <td>Member name:</td>
+                        <td>
+                            <b>${member.memberFullName}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Username:</td>
+                        <td>${member.memberUsername}</td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td>
+                            <t:any>${passwordFormat}</t:any>  
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Role:</td>
+                        <td>${member.memberRole}</td>
+                    </tr>
+                    <tr>
+                        <td>E-mail:</td>
+                        <td>
+                            ${member.memberEmail}    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Country:</td>
+                        <td>${member.memberCountry}</td>
+                    </tr>
+                    <tr>
+                        <td>Member since:</td>
+                        <td>
+                            ${getFormattedDate(member.memberJoined)}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-xs-6">
+                <table class="table details-table">
+                    <tr>
+                        <td>Bio:</td>
+                        <td>
+                            ${member.memberBio}    
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="row">
-            Posts
-            <t:grid t:source="memberPosts"/>
-        </div>
-        <div class="row">
-            Comments
-            <t:grid t:source="getMemberComments()"/>
-        </div>
-        <div class="row">
-            <div class="col-sm-10"/>
-            <t:pagelink t:page="Dashboard" style="margin-right:1em" class="btn btn-default ">Cancel</t:pagelink>
-            <t:eventlink t:event="deleteMember" context="member.memberId" class="btn btn-danger">Delete</t:eventlink>
+            <!--EDIT MEMBER-->
+            <t:form t:type="beaneditform"  t:id="memberEditForm" object="member">
+                <t:errors/>
+                <!--MEMBER DETAILS-->
+                <div class="row">
+                    <div class="form-group col-sm-3">
+                        <label for="memberFullName">* Full name:</label>
+                        <t:textfield t:id="memberFullName" t:value="member.memberFullName" validate="required"/>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="memberUsername">* Username:</label>
+                        <t:textfield t:id="memberUsername" t:value="member.memberUsername" validate="required"/>
+                    </div>
+                    <div class="form-group col-sm-3 ">
+                        <label for="memberPassword">* Password:</label>
+                        <input t:type="textfield" type="password" t:id="memberPassword" t:value="memberPassword" validate="required"/>
+                    </div>
+                    <div class="form-group col-sm-3 ">
+                        <label for="repeatPassword">* Repeat password</label>
+                        <input t:type="textfield" type="password" t:id="repeatPassword" t:value="repeatPassword" validate="required"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-3">
+                        <label for="memberEmail">Email:</label>
+                        <t:textfield t:id="memberEmail" t:value="member.memberEmail" validate="required"/>
+                    </div> 
+                    <div class="form-group col-sm-3">
+                        <label for="memberCountry">Country:</label>
+                        <t:textfield t:id="memberCountry" t:value="member.memberCountry" />
+                    </div> 
+                    <!--ONLY VISIBLE TO ADMINS-->
+                    <t:if test="userAdmin">
+                        <div class="form-group col-sm-2">
+                            <label for="memberRole">Role:</label>
+                            <t:select model="roles" t:value="member.memberRole" validate="required"/>
+                        </div>
+                    </t:if> 
+                    <div class="form-group col-sm-4">
+                        <label for="memberBio">Bio:</label>
+                        <t:textarea t:id="memberBio" t:value="member.memberBio" rows="3" />
+                    </div> 
+                </div> 
+               
+                <div class="row">
+                    <div class="col-sm-9"/>
+                    <t:pagelink t:page="view/viewMember" context="member.memberId" style="margin-right:0.5em" class="btn btn-default ">Cancel</t:pagelink>
+                    <t:pagelink t:page="delete/DeleteMember" t:context="member.memberId" style="margin-right:0.5em" class="btn btn-danger">Delete</t:pagelink>
+                    <t:submit t:id="updateMember" class="btn btn-primary" value="Update"/>  
+                </div>
+            </t:form>
         </div>
     </body>
 </html>
