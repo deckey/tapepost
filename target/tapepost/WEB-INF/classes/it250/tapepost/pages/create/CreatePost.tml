@@ -61,7 +61,6 @@
                                     ${getFormattedDate(post.getPostTime())}
                                     at 
                                     ${getFormattedTime(post.getPostTime())}
-                                    by 
                                 </i>
                             </h5>
                             <!--POST CONTENT-->

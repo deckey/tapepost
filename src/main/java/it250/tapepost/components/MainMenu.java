@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it250.tapepost.components;
 
 import it250.tapepost.entities.Member;
@@ -31,19 +26,37 @@ public class MainMenu {
     @Property
     private String subPageName;
 
+    /**
+     * Create and return a list of all main pages
+     * @return string list of all page names
+     */
     public List<String> getPageNames() {
         List<String> pageNames = new ArrayList<>(Arrays.asList("Dashboard", "Posts", "Members"));
         return pageNames;
     }
 
+    /**
+     * Check if a page is current and return result to change css class
+     * @return string 'current' if true and null if false
+     */
     public String getClassForPage() {
         return componentResource.getPageName().equalsIgnoreCase(pageName) ? "current" : null;
     }
+
+    /**
+     * Return label of a page based on page's name (so we can name pages different than their class names'
+     * @return  of the page label
+     */
     public String getPageLabel() {
         List<String> pageNames = getPageNames();
         String[] pageLabels = {"Dashboard", "Posts", "Members"};
         return pageLabels[pageNames.indexOf(pageName)];
     }
+
+    /**
+     * Return a tooltip for a given page name
+     * @return string tooltip content for a page name
+     */
     public String getPageTooltip() {
         List<String> pageNames = getPageNames();
         String[] pageTooltips = {"Go to overview", "Check posts", "View members"};

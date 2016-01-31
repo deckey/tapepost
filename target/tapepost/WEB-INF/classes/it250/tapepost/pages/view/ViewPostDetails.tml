@@ -11,15 +11,29 @@
         <div class="row border_btm">
             <h4>Post details</h4>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <t:grid t:source="post.getComments()"/>
-            </div>
-            <t:form t:id="addCommentForm" id="addCommentForm">
-                <t:textarea t:id="commentContent" id="commentContent" rows="5" value="commentContent"/>
-                <t:submit class="btn btn-primary" value="Comment"/>
-            </t:form>
+        <h6>Content:</h6>
+        <div class="row well">
+            ${post.postContent}
         </div>
+        <div class="row spacer"/>
+        <h6>Comments</h6>
+        <div class="row well">
+            <t:grid t:source="post.getComments()" 
+                    exclude="commentId,commentMemberId"
+                    row="comment"
+                    class="table"
+                    rowsperpage="5"
+                    add="addedBy">
+                <p:addedByCell>
+                    <t:pagelink t:page="view/ViewMember" t:context="comment.getCommentMemberId()">${getCommentingMember(comment.getCommentMemberId())}</t:pagelink>
+                </p:addedByCell>
+            </t:grid>
+        </div>
+        <h5>Post comment:</h5>
+        <t:form t:id="addCommentForm" id="addCommentForm">
+            <t:textarea t:id="commentContent" id="commentContent" rows="5" value="commentContent"/>
+            <t:submit class="btn btn-primary" value="Comment"/>
+        </t:form>
         <!--        <div class="row">
             <div class="col-sm-10"/>
             <t:pagelink t:page="AdminArea" t:context="member.memberId" style="margin-right:1em" class="btn btn-default ">Cancel</t:pagelink>

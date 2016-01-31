@@ -15,7 +15,6 @@
         <div class="row">
             <!-- MEMBER DETAILS HEADER -->
             <t:form class="col-xs-12 form-inline" t:id="memberSelectForm" id="memberSelectForm">
-                <h6>Select member:</h6>
                 <div class="form-group">
                     <select t:type="select"
                             t:model="members" t:id="membersList" id="membersList"

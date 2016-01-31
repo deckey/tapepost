@@ -39,7 +39,7 @@ body{padding:0;margin:0;}
 /*POSTS*/
 .post{margin-bottom: 2em;}
 .post h4{}
-.post-title{font-size:1.5em;}
+.post-title{font-size:1.4em;line-height: 1em;color: #3399ff}
 .post h5{font-size:1.2em;color:#999999;margin:0;}
 /*.post h5 b{font-style:normal;font-weight: normal;color:#666666}*/
 /*.post h5 small{margin-right:1em;}*/

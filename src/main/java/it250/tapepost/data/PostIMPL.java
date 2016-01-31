@@ -23,34 +23,53 @@ public class PostIMPL implements PostDAO {
     @Inject
     private Session dbs;
 
+    
+    /**
+     *
+     * @param commentList
+     */
     @Override
     public void deleteAllComments(List<Comment> commentList) {
-        for (Comment comment : commentList){
+        for (Comment comment : commentList) {
             dbs.delete(comment);
         }
     }
 
+    /**
+     *
+     * @param postList
+     */
     @Override
     public void deleteAllPosts(List<Post> postList) {
-        for (Post post: postList){
+        for (Post post : postList) {
             dbs.delete(post);
         }
     }
 
-    
-    
-    
+    /**
+     *
+     * @param comment
+     */
     @Override
     public void deleteComment(Comment comment) {
         dbs.delete(comment);
     }
 
+    /**
+     *
+     * @param id
+     */
     @Override
     public void deletePost(Integer id) {
         Post post = findPostById(id);
         dbs.delete(post);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public Comment findCommentById(Integer id) {
         return (Comment) dbs.createCriteria(Comment.class)
@@ -58,6 +77,11 @@ public class PostIMPL implements PostDAO {
                 .uniqueResult();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public Post findPostById(Integer id) {
         return (Post) dbs.createCriteria(Post.class)
@@ -65,6 +89,11 @@ public class PostIMPL implements PostDAO {
                 .uniqueResult();
     }
 
+    /**
+     *
+     * @param member
+     * @return
+     */
     @Override
     public List<Post> findPostsByMember(Member member) {
         Integer memberId = member.getMemberId();
@@ -72,32 +101,56 @@ public class PostIMPL implements PostDAO {
         return memberPosts;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Comment> findAllComments() {
         List<Comment> comments = dbs.createCriteria(Comment.class).list();
         return comments;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Post> findAllPosts() {
         return dbs.createCriteria(Post.class).list();
     }
 
+    /**
+     *
+     * @param comment
+     */
     @Override
     public void saveComment(Comment comment) {
         dbs.persist(comment);
     }
 
+    /**
+     *
+     * @param post
+     */
     @Override
     public void savePost(Post post) {
         dbs.persist(post);
     }
 
+    /**
+     *
+     * @param comment
+     */
     @Override
     public void updateComment(Comment comment) {
         dbs.merge(comment);
     }
 
+    /**
+     *
+     * @param post
+     */
     @Override
     public void updatePost(Post post) {
         dbs.merge(post);

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it250.tapepost.components;
 
 import it250.tapepost.entities.Member;
@@ -27,29 +22,32 @@ public class Header {
     @Inject
     private ComponentResources resources;
 
-//    @Inject
-//    private ComponentResources resources;
-//
-//    @SessionState
-//    private Member loggedInUser;
-//
-//    // return name of the logged user
-//    public String getLoggedUser() {
-//        return loggedInUser.getMemberFullName();
-//    }
-    //Check if user is Admin and can access admin area
-    Object onEnterAdminArea() {
+    /**
+     * Check if user is Admin and can access admin area
+     *
+     * @return AdminArea if true or Dashboard page if false
+     */
+    public Object onEnterAdminArea() {
         if (loggedInMember.getMemberRole().equals(MemberRole.Administrator)) {
             return AdminArea.class;
         }
         return Dashboard.class;
     }
 
-    Object onLogout() {
+    /**
+     * Clear persistent user from session and go to Index page
+     *
+     * @return Index page
+     */
+    public Object onLogout() {
         resources.discardPersistentFieldChanges();
         return Index.class;
     }
 
+    /**
+     * Check if member is logged or not
+     * @return Index if true or null if false
+     */
     Object onActivate() {
         if (loggedInMember == null) {
             return Index.class;

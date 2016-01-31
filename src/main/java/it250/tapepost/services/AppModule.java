@@ -24,6 +24,10 @@ import org.slf4j.Logger;
  */
 public class AppModule {
 
+    /**
+     *
+     * @param binder
+     */
     public static void bind(ServiceBinder binder) {
         // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
         binder.bind(MemberDAO.class, MemberIMPL.class);
@@ -35,6 +39,10 @@ public class AppModule {
         // invoking the constructor.
     }
 
+    /**
+     *
+     * @param configuration
+     */
     public static void contributeFactoryDefaults(
             MappedConfiguration<String, Object> configuration) {
         // The values defined here (as factory default overrides) are themselves
@@ -49,6 +57,10 @@ public class AppModule {
         configuration.override(SymbolConstants.PRODUCTION_MODE, false);
     }
 
+    /**
+     *
+     * @param configuration
+     */
     public static void contributeApplicationDefaults(
             MappedConfiguration<String, Object> configuration) {
         // Contributions to ApplicationDefaults will override any contributions to
@@ -66,6 +78,7 @@ public class AppModule {
     /**
      * Use annotation or method naming convention:
      * <code>contributeApplicationDefaults</code>
+     * @param configuration
      */
     @Contribute(SymbolProvider.class)
     @ApplicationDefaults
@@ -95,6 +108,8 @@ public class AppModule {
      * the service interface and would be "RequestFilter". Since Tapestry
      * already defines a service named "RequestFilter" we use an explicit
      * service id that we can reference inside the contribution method.
+     * @param log
+     * @return 
      */
     public RequestFilter buildTimingFilter(final Logger log) {
         return new RequestFilter() {
@@ -124,6 +139,8 @@ public class AppModule {
      * annotation selects the desired service by type, but only from the same
      * module. Without @Local, there would be an error due to the other
      * service(s) that implement RequestFilter (defined in other modules).
+     * @param configuration
+     * @param filter
      */
     @Contribute(RequestHandler.class)
     public void addTimingFilter(OrderedConfiguration<RequestFilter> configuration,

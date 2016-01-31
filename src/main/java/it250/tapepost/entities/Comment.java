@@ -47,52 +47,101 @@ public class Comment implements Serializable {
     @JoinColumn(name = "commentPostId")
     private Post post;
 
+    /**
+     * Empty constructor
+     */
     @Inject
     public Comment() {
     }
 
+    /**
+     *
+     * @param commentContent
+     * @param post
+     * @param member
+     */
     public Comment(String commentContent, Post post, Member member) {
         this.commentContent = commentContent;
         this.post = post;
         this.commentMemberId = member.getMemberId();
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getCommentId() {
         return commentId;
     }
 
+    /**
+     *
+     * @param commentId
+     */
     public void setCommentId(Integer commentId) {
         this.commentId = commentId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCommentContent() {
         return commentContent;
     }
 
+    /**
+     *
+     * @param commentContent
+     */
     public void setCommentContent(String commentContent) {
         this.commentContent = commentContent;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getCommentTime() {
         return commentTime;
     }
 
+    /**
+     *
+     * @param commentTime
+     */
     public void setCommentTime(Date commentTime) {
         this.commentTime = commentTime;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getCommentMemberId() {
         return commentMemberId;
     }
 
+    /**
+     *
+     * @param commentMemberId
+     */
     public void setCommentMemberId(Integer commentMemberId) {
         this.commentMemberId = commentMemberId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Post getPost() {
         return post;
     }
 
+    /**
+     *
+     * @param post
+     */
     public void setPost(Post post) {
         this.post = post;
     }

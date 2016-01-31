@@ -10,6 +10,7 @@ import it250.tapepost.data.PostDAO;
 import it250.tapepost.entities.Comment;
 import it250.tapepost.entities.Member;
 import it250.tapepost.entities.Post;
+import it250.tapepost.pages.Dashboard;
 import it250.tapepost.pages.Posts;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,6 +38,9 @@ public class CreatePost {
 
     @Property
     private Comment comment;
+
+    @InjectPage
+    private Dashboard dashboardPage;
 
     @Property
     @SessionState
@@ -87,27 +91,51 @@ public class CreatePost {
         return postsPage;
     }
 
+    /**
+     * Find a Member instance that created a specified comment
+     *
+     * @param id
+     * @return String of member's username
+     */
     public String getCommentingMember(Integer id) {
         return memberDao.findMemberById(id).getMemberUsername();
     }
 
+    /**
+     * Return specified date in a readable format
+     *
+     * @param date
+     * @return Date as a string, e.g. Jan 09
+     */
     public String getFormattedDate(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd");
-        if (dateFormat.format(date).equals(dateFormat.format(new Date()))) {
-            return "today";
-        }
-        return dateFormat.format(date);
+        return dashboardPage.getFormattedDate(date);
     }
 
+    /**
+     *
+     * Return specified time in a readable format
+     *
+     * @param date
+     * @return Date as a time string, e.g. 12:15
+     */
     public String getFormattedTime(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
-        return dateFormat.format(date);
+        return dashboardPage.getFormattedTime(date);
     }
 
+    /**
+     * Check if member has posts and display corresponding html content
+     *
+     * @return True if posts exist
+     */
     public boolean getCheckPosts() {
         return member.getPosts().size() == 0 ? true : false;
     }
 
+    /**
+     * Find top 3 latest comments
+     *
+     * @return List of comments that belong to selected post
+     */
     public List<Comment> getLatestComments() {
         List<Comment> latestComments = post.getComments();
         if (latestComments == null) {
@@ -124,13 +152,23 @@ public class CreatePost {
         return latestComments.subList(0, 3);
     }
 
+    /**
+     * Event triggered when post gets selected, creates ajax response
+     *
+     * @param id
+     */
     public void onSelectPost(Integer id) {
         postSelected = true;
         post = postDao.findPostById(id);
         response.addRender(commentZone);
     }
 
-
+    /**
+     * Page activation context method to display a member selected from a
+     * different page
+     *
+     * @param member
+     */
     public void set(Member member) {
         this.member = member;
     }

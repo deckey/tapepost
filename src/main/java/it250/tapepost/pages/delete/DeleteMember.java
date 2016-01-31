@@ -5,9 +5,11 @@ import it250.tapepost.data.PostDAO;
 import it250.tapepost.entities.Comment;
 import it250.tapepost.entities.Member;
 import it250.tapepost.entities.Post;
-import it250.tapepost.pages.Members;
+import it250.tapepost.pages.Index;
+import it250.tapepost.prop.MemberRole;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.alerts.AlertManager;
 import org.apache.tapestry5.alerts.Duration;
 import org.apache.tapestry5.alerts.Severity;
@@ -17,17 +19,12 @@ import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author Dejan Ivanovic divanovic3d@gmail.com
  */
 public class DeleteMember {
-    
+
     @Inject
     private AlertManager alertManager;
 
@@ -51,7 +48,13 @@ public class DeleteMember {
 
     @Property
     private List<Post> memberPosts;
+    @Inject
+    private ComponentResources resources;
 
+    /**
+     * Find all comments made by current member
+     * @return List of comments 
+     */
     public List<Comment> getMemberComments() {
         List<Comment> memberComments = new ArrayList<>();
         comments = postDao.findAllComments();
@@ -63,6 +66,10 @@ public class DeleteMember {
         return memberComments;
     }
 
+   /**
+     * Page activation context method to display a member selected from a different page
+     * @param member
+     */
     public void set(Member member) {
         this.member = member;
     }
@@ -79,8 +86,9 @@ public class DeleteMember {
     @CommitAfter
     Object onDeleteMember(Integer id) {
         Member member = memberDao.findMemberById(id);
-        if (loggedInMember.getMemberUsername().equals(member.getMemberUsername())) {
-            alertManager.alert(Duration.TRANSIENT, Severity.ERROR, "You can not delete yourself!?");
+        if (loggedInMember.getMemberUsername().equals(member.getMemberUsername())
+                && (loggedInMember.getMemberRole().equals(MemberRole.Administrator))) {
+            alertManager.alert(Duration.TRANSIENT, Severity.ERROR, "Administrator can not delete his own profile!?");
             return null;
         }
         List<Post> memberPosts = member.getPosts();
@@ -102,14 +110,12 @@ public class DeleteMember {
             }
         }
         System.out.println("......POST COMMENTS DELETED");
-
         member.setPosts(new ArrayList<>());
-
         System.out.println("DELETING POSTS.......");
         postDao.deleteAllPosts(memberPosts);
         System.out.println("DELETING MEMBER.......");
         memberDao.deleteMember(id);
-
-        return Members.class;
+        resources.discardPersistentFieldChanges();
+        return Index.class;
     }
 }

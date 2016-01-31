@@ -25,6 +25,10 @@ public class DeletePost {
     @Property
     private Post post;
 
+    /**
+     * Page activation context method to display a post selected from a different page
+     * @param post
+     */
     public void set(Post post) {
         this.post = post;
     }

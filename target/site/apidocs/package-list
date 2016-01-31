@@ -1,0 +1,10 @@
+it250.tapepost.components
+it250.tapepost.data
+it250.tapepost.entities
+it250.tapepost.pages
+it250.tapepost.pages.create
+it250.tapepost.pages.delete
+it250.tapepost.pages.edit
+it250.tapepost.pages.view
+it250.tapepost.prop
+it250.tapepost.services

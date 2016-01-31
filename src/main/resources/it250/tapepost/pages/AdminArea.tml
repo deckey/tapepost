@@ -13,29 +13,33 @@
             <h4 class="border_btm">Add new member</h4>
             <t:form t:id="addMemberForm" id="addMemberForm">
                 <div class="row">
-                    <div class="control-group col-xs-4">
+                    <div class="control-group col-xs-3">
                         <t:label for="memberFullName">Full name</t:label>
                         <t:textfield t:id="memberFullName" id="memberFullName" t:value="memberFullName"/>
                     </div>
-                    <div class="control-group col-xs-4">
+                    <div class="control-group col-xs-3">
                         <t:label for="memberUsername">Username</t:label>
                         <t:textfield t:id="memberUsername" id="memberUsername" t:value="memberUsername"/>
                     </div>
-                    <div class="control-group col-xs-4">
+                    <div class="control-group col-xs-3">
                         <t:label for="memberPassword">Pasword</t:label>
                         <t:textfield type="password" t:id="memberPassword" id="memberPassword" t:value="memberPassword"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="control-group col-xs-4">
-                        <t:label for="memberEmail">E-mail</t:label>
-                        <t:textfield t:id="memberEmail" id="memberEmail" t:value="memberEmail"/>
-                    </div>
-                    <div class="control-group col-xs-4">
+                    </div> 
+                    <div class="control-group col-xs-3">
                         <t:label for="memberRole">Role</t:label>
                         <t:select t:model="roles" t:id="memberRole" id="memberRole" t:value="memberRole"/>
                     </div>
-                    <div class="control-group col-xs-4">
+                </div>
+                <div class="row">
+                    <div class="control-group col-xs-3">
+                        <t:label for="memberEmail">E-mail</t:label>
+                        <t:textfield t:id="memberEmail" id="memberEmail" t:value="memberEmail"/>
+                    </div>
+                    <div class="control-group col-xs-3">
+                        <t:label for="memberCountry">Country</t:label>
+                        <t:textfield t:id="memberCountry" id="memberCountry" t:value="memberCountry"/>
+                    </div>
+                    <div class="control-group col-xs-3">
                         <t:label for="memberBio">Bio</t:label>
                         <t:textfield t:id="memberBio" id="memberBio" t:value="memberBio" />
                     </div>
@@ -50,11 +54,14 @@
         <div class="row ">
             <h4 class="border_btm">Members</h4>
             <t:grid t:source="members"
-                    exclude="memberPassword"
-                    rowsperpage="10"
+                    exclude="memberPassword,memberId"
+                    rowsperpage="5"
                     row="rowmember"
                     add="Action, Posts"
                     class="table">
+                <p:memberUsernameCell>
+                    <t:pagelink t:page="view/ViewMember" t:context="rowmember.memberId">${rowmember.getMemberUsername()}</t:pagelink>
+                </p:memberUsernameCell>
                 <p:actionCell>
                     <t:pagelink t:page="delete/deleteMember" t:context="rowmember.memberId">Delete</t:pagelink>
                 </p:actionCell>
@@ -66,16 +73,37 @@
         <div class="row">
             <h4 class="border_btm">Posts</h4>
             <t:grid t:source="posts"
+                    exclude="postId"
                     rowsperpage="10"
                     row="post"
                     add="Action"
                     class="table">
+                <p:postTitleCell>
+                    <t:pagelink t:page="view/ViewPostDetails" t:context="post.postId">${post.postTitle}</t:pagelink>
+                </p:postTitleCell>
                 <p:actionCell>
                     <t:pagelink t:page="delete/deletePost" t:context="post.postId">Delete</t:pagelink>
-                    <br/>
                 </p:actionCell>
                 <p:empty>
                     No posts
+                </p:empty>
+            </t:grid>
+            <t:alerts/>
+        </div>
+        <div class="row">
+            <h4 class="border_btm">Comments</h4>
+            <t:grid t:source="comments"
+                    exclude="commentId,commentMemberId"
+                    rowsperpage="10"
+                    row="comment"
+                    add="Action"
+                    class="table">
+              
+                <p:actionCell>
+                    <t:eventlink t:event="deleteComment" t:context="comment">Delete</t:eventlink>
+                </p:actionCell>
+                <p:empty>
+                    No comments
                 </p:empty>
             </t:grid>
             <t:alerts/>
