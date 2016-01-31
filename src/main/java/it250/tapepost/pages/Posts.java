@@ -51,6 +51,9 @@ public class Posts {
     @Property
     private Member member;
 
+    @InjectPage
+    private Dashboard dashboardPage;
+
     @Inject
     private MemberDAO memberDao;
 
@@ -82,23 +85,42 @@ public class Posts {
     @InjectComponent
     private Zone commentZone;
 
+    /**
+     * Return specified date in a readable format
+     *
+     * @param date
+     * @return Date as a string, e.g. Jan 09
+     */
     public String getFormattedDate(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd");
-        if (dateFormat.format(date).equals(dateFormat.format(new Date()))) {
-            return "today";
-        }
-        return dateFormat.format(date);
+        return dashboardPage.getFormattedDate(date);
     }
 
+    /**
+     *
+     * Return specified time in a readable format
+     *
+     * @param date
+     * @return Date as a time string, e.g. 12:15
+     */
     public String getFormattedTime(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
-        return dateFormat.format(date);
+        return dashboardPage.getFormattedTime(date);
     }
 
+    /**
+     * Find a Member instance that created a specified comment
+     *
+     * @param id
+     * @return String of member's username
+     */
     public String getCommentingMember(Integer id) {
         return memberDao.findMemberById(id).getMemberUsername();
     }
 
+    /**
+     * Find top 3 posts with most comments
+     *
+     * @return List of Post instances that have most comments (top 3)
+     */
     public List<Post> getPopularPosts() {
         List<Post> popularPosts = posts;
         Collections.sort(popularPosts, new Comparator<Post>() {
@@ -112,6 +134,11 @@ public class Posts {
         return popularPosts.subList(0, 3);
     }
 
+    /**
+     * Find posts that were created last
+     *
+     * @return List of 3 newest posts
+     */
     public List<Post> getLatestPosts() {
         List<Post> latestPosts = posts;
         Collections.sort(latestPosts, new Comparator<Post>() {
@@ -125,10 +152,20 @@ public class Posts {
         return latestPosts.subList(0, 3);
     }
 
+    /**
+     * Find last comment made on a post
+     *
+     * @return Last Post comment as string
+     */
     public String getLastPostComment() {
         return getLatestComments().get(0).getCommentContent();
     }
 
+    /**
+     * Find a list of recent comments on a post
+     *
+     * @return List of 3 recent comments
+     */
     public List<Comment> getLatestComments() {
         List<Comment> latestComments = post.getComments();
         if (latestComments == null) {
@@ -145,7 +182,12 @@ public class Posts {
         return latestComments.subList(0, 3);
     }
 
-    void onSelectPost(Integer id) {
+    /**
+     * Event triggered when post gets selected, creates ajax response
+     *
+     * @param id
+     */
+    public void onSelectPost(Integer id) {
         postSelected = true;
         post = postDao.findPostById(id);
         response.addRender(commentZone);

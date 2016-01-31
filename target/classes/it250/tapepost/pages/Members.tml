@@ -1,10 +1,6 @@
 <html t:type="layout" title="TapePost:Members"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
       xmlns:p="tapestry:parameter">
-
-    <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
-
-    <!-- Main hero unit for a primary marketing message or call to action -->
     <body>
         <t:header/>
         <t:mainmenu/>
@@ -22,7 +18,6 @@
                     <th>Posts</th>
                     <th>Comments</th>
                     <tr t:type="loop" t:source="members" t:value="member">
-                        
                         <td>
                             <t:pagelink t:page="view/ViewMember" t:context="member.memberId">${member.memberUsername}</t:pagelink>
                         </td>
@@ -30,30 +25,6 @@
                         <td>${getMemberComments(member).size()}</td>
                     </tr>
                 </table>
-<!--                <t:loop t:source="members" t:value="member">
-                       
-                        <t:eventlink t:event="selectPost" t:context="post.postId" async="true" class="post-title">
-                            ${post.getPostTitle()}
-                        </t:eventlink>
-                        POST FACTS
-                        <h5>
-                            <i>
-                                posted ${getFormattedDate(post.getPostTime())}
-                                at 
-                                ${getFormattedTime(post.getPostTime())}
-                                by 
-                            </i>
-                            <t:pagelink t:page="view/ViewMember" t:context="post.getMember().getMemberId()">
-                                ${post.getMember().getMemberUsername()}
-                            </t:pagelink>
-                        </h5>
-                        POST CONTENT
-                        <div  class="short-content">
-                            <h6>${post.getPostContent()}</h6>
-                        </div>
-                        ...
-                </t:loop>-->
-                <!--<t:grid t:source="latestPosts"/>-->
             </div>
             
             <div class="col-xs-6 frame">
@@ -78,7 +49,7 @@
                                 ${post.getMember().getMemberUsername()}
                             </t:pagelink>
                         </h5>
-                        <div  class="mid-content">
+                        <div  class="short-content">
                             <h6>${post.getPostContent()}</h6>
                         </div>
                     </div>

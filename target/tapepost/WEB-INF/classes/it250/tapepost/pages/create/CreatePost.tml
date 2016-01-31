@@ -13,27 +13,115 @@
         </div>
         
         <div class="row">
-            <t:form t:id="addPostForm" id="addPostForm" t:object="post">
-                <div class="row">
-                    <div class="control-group col-xs-4">
-                        <t:label for="postTitle">Post title</t:label>
-                        <t:textfield t:id="postTitle" id="postTitle" t:value="postTitle"/>
+            <div class="col-xs-6">
+                <t:form t:id="addPostForm" id="addPostForm" t:object="post">
+                    <div class="row">
+                        <div class="control-group col-xs-12">
+                            <t:label for="postTitle">Post title</t:label>
+                            <t:textfield t:id="postTitle" id="postTitle" t:value="postTitle"/>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="control-group col-xs-6">
-                        <t:label for="postContent">Post content</t:label>
-                        <t:textarea t:id="postContent" id="postContent" t:value="postContent" rows="5" cols="20"/>
+                    <div class="row">
+                        <div class="control-group col-xs-12">
+                            <t:label for="postContent">Post content</t:label>
+                            <t:textarea t:id="postContent" id="postContent" t:value="postContent" rows="5" cols="20"/>
+                        </div>
                     </div>
-                </div>
-                <div class="control-group col-xs-6">
-                    <div class="col-xs-4 pull-right">
-                        <t:pagelink t:page="Posts" class="btn btn-default">Cancel</t:pagelink>
+                    
+                    <div class="row">
+                        <div class="col-sm-8"/>
+                        <t:pagelink t:page="Posts" style="margin-right:0.5em" class="btn btn-default">Cancel</t:pagelink>
                         <button class="btn btn-primary" id="addPostBtn" >Post</button>
                     </div>
-                </div>
-            </t:form>
+                </t:form>
+            </div>
+            
+            <div class="col-xs-6">  
+                
+                <h5>
+                    <i>Your other posts</i>
+                </h5>
+                <t:if test="checkPosts">
+                    <div class="control-group col-xs-12">
+                        <label>You haven't posted anything yet</label>
+                    </div>
+                </t:if>
+                <t:if test="!checkPosts">
+                    <t:loop t:source="member.getPosts()" t:value="post">
+                        <div class="post">
+                            <!--POST TITLE-->
+                            <t:eventlink t:event="selectPost" t:context="post.postId" async="true" class="post-title" >
+                                ${post.getPostTitle()}
+                            </t:eventlink>
+                            <span class="badge pull-right">${post.getComments().size()}</span>
+                            <!--POST FACTS-->
+                            <h5>
+                                <i>
+                                    posted 
+                                    ${getFormattedDate(post.getPostTime())}
+                                    at 
+                                    ${getFormattedTime(post.getPostTime())}
+                                </i>
+                            </h5>
+                            <!--POST CONTENT-->
+                            <div  class="mid-content">
+                                <h6>${post.getPostContent()}</h6>
+                            </div>
+                        </div>
+                    </t:loop>
+                </t:if>
+            </div>
         </div>
+        
+        
+        <div class="row">
+            <t:zone t:id="commentZone" id="commentZone">
+                <t:if test="postSelected">
+                    <div class="col-xs-12 spacer border-btm-prim"/>
+        
+                    <!--DISPLAY POST DETAILS-->
+                    <div class="col-xs-12 post">
+                        <h5>
+                            <t:pagelink t:page="view/ViewPostDetails" class="post-title" t:context="post.postId" title="View post details">
+                                ${post.getPostTitle()}
+                            </t:pagelink>
+                        </h5>
+                        <!--POST CONTENT-->
+                        <h6>${post.getPostContent()}</h6>
+                    </div>  
+                    <div class="col-xs-12 border-btm-sec"/>
+                    <div class="col-xs-12 comment">
+                        <!--LATEST COMMENTS-->
+                        <h6>
+                            <i>Latest comments</i>
+                        </h6>
+                        <t:loop t:source="latestComments" t:value="comment">
+                            <div class="post">
+                                <!--POST CONTENT-->
+                                <h6>${comment.commentContent}</h6>
+                                <!--POST FACTS-->
+                                <h5>
+                                    <i>
+                                        commented
+                                        ${getFormattedDate(comment.getCommentTime())}
+                                        at 
+                                        ${getFormattedTime(comment.getCommentTime())}
+                                        by 
+                                    </i> 
+                                    <t:pagelink t:page="view/ViewMember" t:context="comment.getCommentMemberId()">
+                                        ${getCommentingMember(comment.getCommentMemberId())}
+                                    </t:pagelink>
+                                </h5>
+                            </div>
+                        </t:loop>
+                    </div>
+                    <div class="row spacer"/>
+                    
+                    
+                </t:if>
+            </t:zone>
+        </div>
+        
     </body>
 </html>
 

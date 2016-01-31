@@ -45,9 +45,6 @@ public class Post implements java.io.Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date postTime;
 
-    @Column(name = "postVotes")
-    private Integer postVotes;
-
     @ManyToOne
     @JoinColumn(name = "postMemberId")
     private Member member;
@@ -55,69 +52,117 @@ public class Post implements java.io.Serializable {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
+    /**
+     * Empty constructor
+     */
     @Inject
     public Post() {
     }
 
+    /**
+     *
+     * @param postTitle
+     * @param postContent
+     * @param member
+     */
     public Post(String postTitle, String postContent,  Member member) {
         this.postTitle = postTitle;
         this.postContent = postContent;
-        this.postVotes = 0;
         this.member = member;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getPostId() {
         return postId;
     }
 
+    /**
+     *
+     * @param postId
+     */
     public void setPostId(Integer postId) {
         this.postId = postId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPostTitle() {
         return postTitle;
     }
 
+    /**
+     *
+     * @param postTitle
+     */
     public void setPostTitle(String postTitle) {
         this.postTitle = postTitle;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPostContent() {
         return postContent;
     }
 
+    /**
+     *
+     * @param postContent
+     */
     public void setPostContent(String postContent) {
         this.postContent = postContent;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getPostTime() {
         return postTime;
     }
 
+    /**
+     *
+     * @param postTime
+     */
     public void setPostTime(Date postTime) {
         this.postTime = postTime;
     }
 
-    public Integer getPostVotes() {
-        return postVotes;
-    }
-
-    public void setPostVotes(Integer postVotes) {
-        this.postVotes = postVotes;
-    }
-
+    /**
+     *
+     * @return
+     */
     public Member getMember() {
         return member;
     }
 
+    /**
+     *
+     * @param member
+     */
     public void setMember(Member member) {
         this.member = member;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Comment> getComments() {
         return comments;
     }
 
+    /**
+     *
+     * @param comments
+     */
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }

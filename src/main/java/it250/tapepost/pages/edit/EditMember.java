@@ -6,9 +6,9 @@ import it250.tapepost.entities.Comment;
 import it250.tapepost.entities.Member;
 import it250.tapepost.entities.Post;
 import it250.tapepost.pages.AdminArea;
+import it250.tapepost.pages.Dashboard;
 import it250.tapepost.pages.view.ViewMember;
 import it250.tapepost.prop.MemberRole;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import org.apache.tapestry5.annotations.InjectComponent;
@@ -20,11 +20,6 @@ import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author Dejan Ivanovic divanovic3d@gmail.com
@@ -33,6 +28,9 @@ public class EditMember {
 
     @Property
     private List<Comment> comments;
+
+    @InjectPage
+    private Dashboard dashboardPage;
 
     @SessionState
     private Member loggedInMember;
@@ -71,18 +69,33 @@ public class EditMember {
     @InjectPage
     private ViewMember viewMemberPage;
 
+    /**
+     * Check if password arguments are the same
+     *
+     * @param pass1
+     * @param pass2
+     * @return True if passwords are the same
+     */
     public boolean checkPassword(String pass1, String pass2) {
         return pass1.equals(pass2);
     }
 
+    /**
+     * Return specified date in a readable format
+     *
+     * @param date
+     * @return Date as a string, e.g. Jan 09
+     */
+
     public String getFormattedDate(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd");
-        if (dateFormat.format(date).equals(dateFormat.format(new Date()))) {
-            return "today";
-        }
-        return dateFormat.format(date);
+        return dashboardPage.getFormattedDate(date);
     }
 
+    /**
+     * Find access role level of the logged in user
+     *
+     * @return True if user is Admin
+     */
     public boolean getLoggedInRole() {
         if ((loggedInMember.getMemberRole().equals(MemberRole.Administrator))
                 || (loggedInMember.getMemberId() == member.getMemberId())) {
@@ -103,15 +116,31 @@ public class EditMember {
         return viewMemberPage;
     }
 
+    /**
+     * Get list of roles from MemberRole class
+     *
+     * @return array of roles available
+     */
     public MemberRole[] getRoles() {
         MemberRole[] roles = MemberRole.values();
         return roles;
     }
 
+    /**
+     * Check if logged in user is Administrator
+     *
+     * @return True if user is Admin
+     */
     public boolean getUserAdmin() {
         return loggedInMember.getMemberRole().equals(MemberRole.Administrator);
     }
 
+    /**
+     * Page activation context method to display a member selected from a
+     * different page
+     *
+     * @param member
+     */
     public void set(Member member) {
         this.member = member;
     }

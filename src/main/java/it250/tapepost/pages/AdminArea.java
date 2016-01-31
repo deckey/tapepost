@@ -7,13 +7,11 @@ package it250.tapepost.pages;
 
 import it250.tapepost.data.MemberDAO;
 import it250.tapepost.data.PostDAO;
+import it250.tapepost.entities.Comment;
 import it250.tapepost.entities.Member;
 import it250.tapepost.entities.Post;
 import it250.tapepost.prop.MemberRole;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
@@ -27,6 +25,13 @@ import org.apache.tapestry5.ioc.annotations.Inject;
  */
 public class AdminArea {
 
+    @Property
+    private Comment comment;
+    
+    @Property
+    private List<Comment> comments;
+    
+    
     @SessionState
     private Member loggedInMember;
     @Inject
@@ -39,6 +44,8 @@ public class AdminArea {
     private Member member;
 
 //    FIELDS
+    @Property
+    private String memberCountry;
     @Property
     @Validate("required")
     private String memberFullName;
@@ -68,6 +75,10 @@ public class AdminArea {
     @Property
     private List<Post> posts;
 
+    /**
+     * Get list of existing roles from a MemberRole entity
+     * @return List of roles, Administrator and Member
+     */
     public MemberRole[] getRoles() {
         return MemberRole.values();
     }
@@ -79,11 +90,15 @@ public class AdminArea {
         if (posts == null) {
             posts = new ArrayList<>();
         }
+        if(comments==null){
+            comments = new ArrayList<>();
+        }
     }
 
     void onActivate() {
         members = memberDao.findAllMembers();
         posts = postDao.findAllPosts();
+        comments = postDao.findAllComments();
     }
 
     @CommitAfter
@@ -91,6 +106,12 @@ public class AdminArea {
         Member newMember = new Member(memberFullName, memberUsername, memberPassword, memberRole);
         newMember.setMemberBio(memberBio);
         newMember.setMemberEmail(memberEmail);
+        newMember.setMemberCountry(memberCountry);
         memberDao.saveMember(newMember);
+    }
+    
+    @CommitAfter
+    void onDeleteComment(Comment comment){
+        postDao.deleteComment(comment);
     }
 }

@@ -20,6 +20,11 @@ public class MemberIMPL implements MemberDAO {
     @Inject
     private Session dbs;
 
+    /**
+     * Check if member exists in the DB based on given username
+     * @param uName
+     * @return True if member exists
+     */
     @Override
     public boolean checkIfMemberExists(String uName) {
         List<Member> members = findAllMembers();
@@ -31,18 +36,31 @@ public class MemberIMPL implements MemberDAO {
         return false;
     }
 
+    /**
+     * Delete member from DB based on given Id
+     * @param id
+     */
     @Override
     public void deleteMember(Integer id) {
         Member member = findMemberById(id);
         dbs.delete(member);
     }
 
+    /**
+     * Find all instances of Member entity from DB
+     * @return List of member instances
+     */
     @Override
     public List<Member> findAllMembers() {
         List< Member> members = dbs.createCriteria(Member.class).list();
         return members;
     }
 
+    /**
+     * Find Member instance from DB based on given integer Id
+     * @param id
+     * @return Member object
+     */
     @Override
     public Member findMemberById(Integer id) {
         return (Member) dbs.createCriteria(Member.class)
@@ -50,6 +68,11 @@ public class MemberIMPL implements MemberDAO {
                 .uniqueResult();
     }
 
+    /**
+     * Find Member instance based on username
+     * @param uName
+     * @return Member instance
+     */
     @Override
     public Member findMemberByUsername(String uName) {
         return (Member) dbs.createCriteria(Member.class)
@@ -57,6 +80,11 @@ public class MemberIMPL implements MemberDAO {
                 .uniqueResult();
     }
 
+    /**
+     * Find member by given full name
+     * @param fName
+     * @return Member object 
+     */
     @Override
     public Member findMemberByFullName(String fName) {
         return (Member) dbs.createCriteria(Member.class)
@@ -64,16 +92,30 @@ public class MemberIMPL implements MemberDAO {
                 .uniqueResult();
     }
 
+    /**
+     *
+     * @param member
+     */
     @Override
     public void saveMember(Member member) {
         dbs.persist(member);
     }
 
+    /**
+     *
+     * @param member
+     */
     @Override
     public void updateMember(Member member) {
         dbs.merge(member);
     }
 
+    /**
+     *
+     * @param uName
+     * @param pWord
+     * @return
+     */
     @Override
     public boolean validateMember(String uName, String pWord) {
         Member member = (Member) dbs.createCriteria(Member.class)

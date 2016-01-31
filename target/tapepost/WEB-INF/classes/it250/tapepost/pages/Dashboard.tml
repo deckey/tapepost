@@ -61,7 +61,7 @@
             <div class="row">
                 <div class="col-xs-5">
                     <div class="dashboard-icon">
-                        <a t:type="pagelink" t:page="create/CreatePost" title="Create a new post">
+                        <a t:type="pagelink" t:context="loggedInMember.memberId" t:page="create/CreatePost" title="Create a new post">
                             <img src="${context:images/icons/new-post-icon.png}"/>
                             ADD NEW POST
                         </a>

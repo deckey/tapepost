@@ -19,9 +19,7 @@ public class Layout {
     @Inject
     private ComponentResources resources;
 
-    /**
-     * The page title, for the <title> element and the <h1> element.
-     */
+   
     @Property
     @Parameter(required = true, defaultPrefix = BindingConstants.LITERAL)
     private String title;
@@ -29,13 +27,13 @@ public class Layout {
     @Property
     private String pageName;
 
+    /**
+     * Return 'active' class for an active page, based on page name
+     * @return 'active' if true or null if false
+     */
     public String getClassForPageName() {
         return resources.getPageName().equalsIgnoreCase(pageName)
                 ? "active"
                 : null;
-    }
-
-    public String[] getPageNames() {
-        return new String[]{"Index"};
     }
 }
