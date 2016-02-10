@@ -2,9 +2,6 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
       xmlns:p="tapestry:parameter">
 
-    <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
-
-    <!-- Main hero unit for a primary marketing message or call to action -->
     <body>
         <t:header/>
         <t:mainmenu/>

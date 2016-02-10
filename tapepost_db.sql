@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 31, 2016 at 03:54 PM
+-- Generation Time: Feb 10, 2016 at 09:26 AM
 -- Server version: 5.6.26
 -- PHP Version: 5.5.28
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `commentTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `commentMemberId` int(11) DEFAULT NULL,
   `commentPostId` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=809 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=808 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `comment`
@@ -147,7 +147,7 @@ ALTER TABLE `post`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `commentId` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=809;
+  MODIFY `commentId` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=808;
 --
 -- AUTO_INCREMENT for table `member`
 --
